@@ -33,8 +33,8 @@ public class Property {
 
     @Column(name = "date")
     private LocalDate date;
-    @Column(name="is_deleted")
-    private boolean isDeleted = false;
+    @Column(name="isDeleted")
+    private boolean isDeleted;
 
     public Property(){
 
