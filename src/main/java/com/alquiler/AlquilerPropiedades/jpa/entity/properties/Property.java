@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class Property {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "propertyName")
@@ -26,19 +26,21 @@ public class Property {
     private boolean available;
 
     @Column(name = "mortgageValue")
-    private Double mortgageValue;
+    private int mortgageValue;
 
     @Column(name = "urlImage")
     private String image;
 
     @Column(name = "date")
     private LocalDate date;
+    @Column(name="is_deleted")
+    private boolean isDeleted = false;
 
     public Property(){
 
     }
 
-    public Property(String propertyName, String city, String address, boolean available, Double mortgageValue, String image, LocalDate date) {
+    public Property(String propertyName, String city, String address, boolean available, int mortgageValue, String image, LocalDate date, boolean isDeleted) {
         this.propertyName = propertyName;
         this.city = city;
         this.address = address;
@@ -46,6 +48,7 @@ public class Property {
         this.mortgageValue = mortgageValue;
         this.image = image;
         this.date = date;
+        this.isDeleted = isDeleted;
     }
 
     public Long getId() {
@@ -88,11 +91,11 @@ public class Property {
         this.available = available;
     }
 
-    public Double getMortgageValue() {
+    public int getMortgageValue() {
         return mortgageValue;
     }
 
-    public void setMortgageValue(Double mortgageValue) {
+    public void setMortgageValue(int mortgageValue) {
         this.mortgageValue = mortgageValue;
     }
 
@@ -112,6 +115,14 @@ public class Property {
         this.date = date;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Property{" +
@@ -123,6 +134,7 @@ public class Property {
                 ", mortgageValue=" + mortgageValue +
                 ", image='" + image + '\'' +
                 ", date=" + date +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

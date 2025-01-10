@@ -19,11 +19,13 @@ public class PropertyDTO {
 
     private boolean available;
 
-    private Double mortgageValue;
+    private int mortgageValue;
 
     private String image;
 
     private LocalDate date;
+
+    private boolean isDeleted;
 
     public PropertyDTO() {
     }
@@ -37,5 +39,6 @@ public class PropertyDTO {
         this.mortgageValue = property.getMortgageValue();
         this.image = property.getImage();
         this.date = property.getDate();
+        this.isDeleted = property.isDeleted();
     }
 }
