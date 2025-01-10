@@ -4,11 +4,13 @@ import com.alquiler.AlquilerPropiedades.dto.PropertyDTO;
 import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
 import com.alquiler.AlquilerPropiedades.jpa.repository.PropertyRepository;
 import com.alquiler.AlquilerPropiedades.service.PropertyService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,7 +53,12 @@ public class PropertyServiceImplement implements PropertyService {
     }
 
     @Override
-    public  List<PropertyDTO>findByPropertyName(String propertyName){
-        return propertyRepository.findByPropertyName(propertyName).stream().map(property -> new PropertyDTO(property)).collect(Collectors.toList());
+    public Optional<PropertyDTO> findByPropertyName(String propertyName) {
+        return propertyRepository.findByPropertyName(propertyName)
+                .map(PropertyDTO::new);
+    }
+    @Transactional
+    public void modifyDeletedValue (String propertyName){
+        propertyRepository.modifyDeletedValue(propertyName);
     }
 }

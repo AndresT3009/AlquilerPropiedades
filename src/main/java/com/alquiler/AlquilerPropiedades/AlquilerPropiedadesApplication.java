@@ -28,8 +28,11 @@ public class AlquilerPropiedadesApplication {
 
 			log.info("Application started");
 
-			Property property = new Property("Apartamento La Vega 203","Medellin","carrera 34 # 75 - 20",true, 2000000,"www.images.com" , LocalDate.of(2024,12,30),false);
+			Property property = new Property("Apartamento La Vega 203","Medellin","carrera 34 # 75 - 20",true, 2000000,"www.images.com" , LocalDate.of(2024,12,8),false);
 			propertyRepository.save(property);
+
+			Property property2 = new Property("Apartamento La Vega 204","Medellin","carrera 34 # 75 - 20",true, 1500000,"www.images.com" , LocalDate.of(2024,12,30),true);
+			propertyRepository.save(property2);
 		};
 
 	}

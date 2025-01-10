@@ -4,6 +4,7 @@ import com.alquiler.AlquilerPropiedades.dto.PropertyDTO;
 import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PropertyService {
 
@@ -17,7 +18,9 @@ public interface PropertyService {
 
     public List<PropertyDTO> findByValue(int min,int max);
 
-    public List<PropertyDTO> findByPropertyName(String propertyName);
+    public Optional<PropertyDTO> findByPropertyName(String propertyName);
+
+    public void modifyDeletedValue(String propertyName);
 
 
 }
