@@ -17,12 +17,22 @@ public class PropertyServiceImplement implements PropertyService {
     @Autowired
     PropertyRepository propertyRepository;
 
+    private boolean verifyCity(String cityLocation, List<String> allowedCities) {
+        String cityLower = cityLocation.toLowerCase();
+        return allowedCities.stream()
+                .anyMatch(city -> city.toLowerCase().equals(cityLower));
+    }
 
-    private boolean esUbicacionPermitida(String ubicacion) {
-        List<String> ciudadesPermitidas = Arrays.asList("bogota", "bogotá", "medellin","medellín", "cali", "cartagena");
-        String ubicacionMinusculas = ubicacion.toLowerCase();
-        return ciudadesPermitidas.stream()
-                .anyMatch(ciudad -> ciudad.toLowerCase().equals(ubicacionMinusculas));
+    @Override
+    public boolean isAllowedLocation(String cityLocation) {
+        List<String> allowedCities = Arrays.asList("medellin", "medellín", "cartagena","bogota", "bogotá", "cali");
+        return verifyCity(cityLocation, allowedCities);
+    }
+
+    @Override
+    public boolean citiesMinValueMortgage(String ubicacion) {
+        List<String> allowedCities = Arrays.asList("bogota", "bogotá", "cali");
+        return verifyCity(ubicacion, allowedCities);
     }
 
     @Override
@@ -33,5 +43,15 @@ public class PropertyServiceImplement implements PropertyService {
     @Override
     public List<PropertyDTO> findAllProperties() {
         return propertyRepository.findAll().stream().map(property -> new PropertyDTO(property)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PropertyDTO> findByValue(int min, int max){
+        return propertyRepository.findByMortgageValue(min, max).stream().map(property -> new PropertyDTO(property)).collect(Collectors.toList());
+    }
+
+    @Override
+    public  List<PropertyDTO>findByPropertyName(String propertyName){
+        return propertyRepository.findByPropertyName(propertyName).stream().map(property -> new PropertyDTO(property)).collect(Collectors.toList());
     }
 }
