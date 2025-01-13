@@ -91,12 +91,10 @@ public class Client {
         this.document = document;
     }
 
-    @JsonIgnore
     public Set<Property> getProperties() {
         return properties;
     }
 
-    @JsonIgnore
     public void setProperties(Set<Property> properties) {
         this.properties = properties;
     }
