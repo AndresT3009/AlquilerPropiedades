@@ -1,5 +1,6 @@
 package com.alquiler.AlquilerPropiedades.jpa.entity.properties;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -38,6 +39,7 @@ public class Property {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
+    @JsonIgnore
     private Client client;
 
     public Property(){
