@@ -36,6 +36,10 @@ public class Property {
     @Column(name="isDeleted")
     private boolean isDeleted;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
     public Property(){
 
     }
@@ -49,6 +53,7 @@ public class Property {
         this.image = image;
         this.date = date;
         this.isDeleted = isDeleted;
+
     }
 
     public Long getId() {
@@ -123,6 +128,14 @@ public class Property {
         isDeleted = deleted;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     @Override
     public String toString() {
         return "Property{" +
@@ -135,6 +148,7 @@ public class Property {
                 ", image='" + image + '\'' +
                 ", date=" + date +
                 ", isDeleted=" + isDeleted +
+                ", client=" + client +
                 '}';
     }
 }
