@@ -1,9 +1,6 @@
 package com.alquiler.AlquilerPropiedades.dto;
 
 import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Client;
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.Getter;
 import java.util.HashSet;
 import java.util.Set;

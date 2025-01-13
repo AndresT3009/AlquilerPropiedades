@@ -1,8 +1,6 @@
 package com.alquiler.AlquilerPropiedades.jpa.entity.properties;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +25,6 @@ public class Client {
 
     @Column(name = "document")
     private Long document;
-
 
     @OneToMany(mappedBy= "client", fetch= FetchType.EAGER)
     private Set<Property> properties = new HashSet<>();

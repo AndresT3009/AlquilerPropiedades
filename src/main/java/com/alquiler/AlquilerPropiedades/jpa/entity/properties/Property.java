@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
-
-
 @Entity
 @Table(name="properties")
 public class Property {
@@ -43,7 +41,6 @@ public class Property {
     private Client client;
 
     public Property(){
-
     }
 
     public Property(String propertyName, String city, String address, boolean available, int mortgageValue, String image, LocalDate date, boolean isDeleted) {
