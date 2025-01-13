@@ -1,6 +1,8 @@
 package com.alquiler.AlquilerPropiedades;
 
+import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Client;
 import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
+import com.alquiler.AlquilerPropiedades.jpa.repository.ClientRepository;
 import com.alquiler.AlquilerPropiedades.jpa.repository.PropertyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +23,8 @@ public class AlquilerPropiedadesApplication {
 	@Bean
 	public CommandLineRunner initData(
 
-			PropertyRepository propertyRepository
+			PropertyRepository propertyRepository,
+			ClientRepository clientRepository
 
 	){
 		return args ->{
@@ -33,7 +36,12 @@ public class AlquilerPropiedadesApplication {
 
 			Property property2 = new Property("Apartamento La Vega 204","Medellin","carrera 34 # 75 - 20",true, 1500000,"www.images.com" , LocalDate.of(2024,12,30),true);
 			propertyRepository.save(property2);
+
+			Client client = new Client("Darwin", "Andrés", "Tangarife", "3015781171",1017137654L);
+			clientRepository.save(client);
 		};
+
+
 
 	}
 }
