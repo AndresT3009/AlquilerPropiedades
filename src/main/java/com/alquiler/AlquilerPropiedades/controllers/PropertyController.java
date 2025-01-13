@@ -1,8 +1,12 @@
 package com.alquiler.AlquilerPropiedades.controllers;
 
+import com.alquiler.AlquilerPropiedades.dto.ClientDTO;
 import com.alquiler.AlquilerPropiedades.dto.PropertyDTO;
+import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Client;
 import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
+import com.alquiler.AlquilerPropiedades.service.ClientService;
 import com.alquiler.AlquilerPropiedades.service.PropertyService;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +24,9 @@ public class PropertyController {
 
     @Autowired
     PropertyService propertyService;
+
+    @Autowired
+    ClientService clientService;
 
     @GetMapping("/properties")
     public ResponseEntity<List<PropertyDTO>> findAll() {
@@ -76,7 +83,7 @@ public class PropertyController {
         boolean isDeleted = false;
         LocalDate date = LocalDate.now();
 
-        Optional<PropertyDTO> property = propertyService.findByPropertyName(propertyName);
+        Optional<Property> property = propertyService.findByPropertyName(propertyName);
         if (property.isPresent()) {
             return new ResponseEntity<>("Property name already exist and its avalability is "+ property.get().isAvailable(), HttpStatus.CONFLICT);
         }else{
@@ -98,9 +105,12 @@ public class PropertyController {
         if (propertyName.isEmpty()){
             return new ResponseEntity<>("You must to specify property Name", HttpStatus.FORBIDDEN);
         }
-        Optional<PropertyDTO> property = propertyService.findByPropertyName(propertyName);
+        Optional<Property> property = propertyService.findByPropertyName(propertyName);
         if (property.isPresent()){
             if(property.get().getDate().plusDays(30).isBefore(LocalDate.now())){
+                if(!property.get().isAvailable()){
+                    return new ResponseEntity<>("Property cannot be deleted because the currently is reserved", HttpStatus.FORBIDDEN);
+                }
                 propertyService.modifyDeletedValue(propertyName);
                 return ResponseEntity.status(HttpStatus.OK).header("Message","Property deleted succesfully").body("Property deleted succesfully");
             }else{
@@ -110,6 +120,41 @@ public class PropertyController {
         return new ResponseEntity<>("Property not found", HttpStatus.NOT_FOUND);
     }
 
+    @Transactional
+    @PostMapping("reserve_property")
+    public ResponseEntity<?>reserveProperty(
+            @RequestParam(required = false) Long propertyId,
+            @RequestParam(required = false) Long clientDocument){
+        if(propertyId == null){
+            return new ResponseEntity<>("You must to specify property Id", HttpStatus.FORBIDDEN);
+        }
+        if(clientDocument == null){
+            return new ResponseEntity<>("You must to specify client document", HttpStatus.FORBIDDEN);
+        }
+        Optional<Property> property = propertyService.findByPropertyId(propertyId);
+        if(property.isEmpty()){
+            return new ResponseEntity<>("Property cannot be reserved, because property does not exist", HttpStatus.FORBIDDEN);
+        }
+        Optional<Client> client = clientService.findByDocument(clientDocument);
+        if(client.isEmpty()){
+            return new ResponseEntity<>("Property cannot be reserved, because client does not exist", HttpStatus.FORBIDDEN);
+        }
+        Property foundProperty = property.get();
+        Client foundClient = client.get();
 
+        if (!foundProperty.isAvailable()) {
+            return new ResponseEntity<>("Property cannot be reserved, because it is not available", HttpStatus.FORBIDDEN);
+        }
+
+        foundProperty.setAvailable(false);
+        foundProperty.setClient(foundClient);
+        foundClient.addProperty(foundProperty);
+
+        propertyService.saveProperty(foundProperty);
+
+        ClientDTO updatedClient = new ClientDTO(foundClient);
+
+        return ResponseEntity.status(HttpStatus.OK).header("Message","Property reserved succesfully").body(updatedClient);
+    }
 
 }

@@ -18,7 +18,8 @@ public interface PropertyService {
 
     public List<PropertyDTO> findByValue(int min,int max);
 
-    public Optional<PropertyDTO> findByPropertyName(String propertyName);
+    public Optional<Property> findByPropertyName(String propertyName);
+    public Optional<Property> findByPropertyId(Long id);
 
     public void modifyDeletedValue(String propertyName);
 

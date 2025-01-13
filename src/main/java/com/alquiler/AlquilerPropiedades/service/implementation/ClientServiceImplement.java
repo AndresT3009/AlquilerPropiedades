@@ -34,8 +34,8 @@ public class ClientServiceImplement implements ClientService {
     }
 
     @Override
-    public Optional<ClientDTO> findByDocument (Long document){
-        return clientRepository.findByDocument(document).map(ClientDTO::new);
+    public Optional<Client> findByDocument (Long document){
+        return clientRepository.findByDocument(document);
     }
 
 }

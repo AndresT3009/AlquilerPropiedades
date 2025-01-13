@@ -34,11 +34,11 @@ public class ClientController {
         if(document <= 0){
             return new ResponseEntity<>("Invalid document value", HttpStatus.BAD_REQUEST);
         }
-        Optional<ClientDTO> clientDTO = clientService.findByDocument(document);
-        if (clientDTO.isEmpty()){
+        Optional<Client> client = clientService.findByDocument(document);
+        if (client.isEmpty()){
             return new ResponseEntity<>("Does not exist client whit this document", HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.status(HttpStatus.OK).header("Message", "Client found succesfully").body(clientDTO);
+        return ResponseEntity.status(HttpStatus.OK).header("Message", "Client found succesfully").body(client);
 
     }
 
@@ -49,8 +49,8 @@ public class ClientController {
     @RequestParam String surName,
     @RequestParam String phoneNumber,
     @RequestParam(required = false) Long document){
-        Optional<ClientDTO> clientDTO = clientService.findByDocument(document);
-        if(clientDTO.isPresent()){
+        Optional<Client> client = clientService.findByDocument(document);
+        if(client.isPresent()){
             return new ResponseEntity<>("Client already exist", HttpStatus.CONFLICT);
         }
         if(firstName.isEmpty()){

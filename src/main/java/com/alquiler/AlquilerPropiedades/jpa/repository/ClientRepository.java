@@ -11,5 +11,4 @@ public interface ClientRepository extends JpaRepository <Client, Long> {
     @Query("SELECT p FROM Client p WHERE p.document = ?1")
     Optional<Client> findByDocument (Long document);
 
-
 }

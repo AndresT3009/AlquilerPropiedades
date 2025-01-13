@@ -53,10 +53,15 @@ public class PropertyServiceImplement implements PropertyService {
     }
 
     @Override
-    public Optional<PropertyDTO> findByPropertyName(String propertyName) {
-        return propertyRepository.findByPropertyName(propertyName)
-                .map(PropertyDTO::new);
+    public Optional<Property> findByPropertyName(String propertyName) {
+        return propertyRepository.findByPropertyName(propertyName);
     }
+
+    @Override
+    public Optional<Property> findByPropertyId(Long id){
+        return propertyRepository.findByPropertyId(id);
+    }
+
     @Transactional
     public void modifyDeletedValue (String propertyName){
         propertyRepository.modifyDeletedValue(propertyName);

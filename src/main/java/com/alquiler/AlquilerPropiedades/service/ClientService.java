@@ -12,5 +12,5 @@ public interface ClientService {
     public List<ClientDTO> findAllClients();
     public List<ClientDTO> getclientDTO();
     public void saveClient(Client client);
-    public Optional<ClientDTO> findByDocument(Long document);
+    public Optional<Client> findByDocument(Long document);
 }
