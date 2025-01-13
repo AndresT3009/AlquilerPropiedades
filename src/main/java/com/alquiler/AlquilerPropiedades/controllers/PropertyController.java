@@ -199,8 +199,11 @@ public class PropertyController {
         if (property.isPresent()) {
             Property updateProperty = property.get();
 
-            if (available.toLowerCase().equals("yes")) {
+            if (available.equalsIgnoreCase("yes")) {
                 updateProperty.setAvailable(true);
+                Client assignedClient = updateProperty.getClient();
+                assignedClient.setProperties(null);
+                updateProperty.setClient(null);
             } else {
                 updateProperty.setAvailable(false);
             }
@@ -217,6 +220,8 @@ public class PropertyController {
 
                     propertyService.saveProperty(updateProperty);
                     return new ResponseEntity<>("Fields value, city and address cannot be updated because the property is rented, other fields were updated successfully ", HttpStatus.ACCEPTED);
+                }else{
+                    return new ResponseEntity<>("Property location doesn't allowed", HttpStatus.NOT_ACCEPTABLE);
                 }
             } else {
                 if (propertyService.citiesMinValueMortgage(city)) {
