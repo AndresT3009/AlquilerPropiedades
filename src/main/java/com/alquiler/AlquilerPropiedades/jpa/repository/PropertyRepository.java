@@ -1,5 +1,6 @@
 package com.alquiler.AlquilerPropiedades.jpa.repository;
 
+import com.alquiler.AlquilerPropiedades.dto.PropertyDTO;
 import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -16,7 +17,13 @@ public interface PropertyRepository extends JpaRepository <Property, Long> {
     @Query("SELECT p FROM Property p WHERE p.propertyName = ?1")
     Optional<Property> findByPropertyName(String propertyName);
 
+    @Query ("SELECT p FROM Property p WHERE p.id = ?1")
+    Optional<Property> findByPropertyId(Long id);
+
+
     @Modifying
     @Query("UPDATE Property p SET p.isDeleted = true WHERE p.propertyName = ?1")
     void modifyDeletedValue (String propertyName);
+
+
 }

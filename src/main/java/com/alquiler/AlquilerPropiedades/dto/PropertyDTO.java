@@ -41,4 +41,5 @@ public class PropertyDTO {
         this.date = property.getDate();
         this.isDeleted = property.isDeleted();
     }
+
 }
