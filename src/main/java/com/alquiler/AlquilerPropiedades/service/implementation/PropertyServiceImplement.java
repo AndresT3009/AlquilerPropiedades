@@ -1,13 +1,14 @@
 package com.alquiler.AlquilerPropiedades.service.implementation;
 
 import com.alquiler.AlquilerPropiedades.dto.PropertyDTO;
+import com.alquiler.AlquilerPropiedades.exceptions.ClientException;
+import com.alquiler.AlquilerPropiedades.exceptions.PropertyException;
 import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
 import com.alquiler.AlquilerPropiedades.jpa.repository.PropertyRepository;
 import com.alquiler.AlquilerPropiedades.service.PropertyService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -19,51 +20,110 @@ public class PropertyServiceImplement implements PropertyService {
     @Autowired
     PropertyRepository propertyRepository;
 
-    private boolean verifyCity(String cityLocation, List<String> allowedCities) {
-        String cityLower = cityLocation.toLowerCase();
-        return allowedCities.stream()
-                .anyMatch(city -> city.toLowerCase().equals(cityLower));
+    private boolean verifyCity(String cityLocation, List<String> allowedCities) throws PropertyException {
+        try {
+            String cityLower = cityLocation.toLowerCase();
+            return allowedCities.stream()
+                    .anyMatch(city -> city.toLowerCase().equals(cityLower));
+        } catch (ClientException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error verifying city" + e);
+        }
     }
 
     @Override
-    public boolean isAllowedLocation(String cityLocation) {
-        List<String> allowedCities = Arrays.asList("medellin", "medellín", "cartagena","bogota", "bogotá", "cali");
-        return verifyCity(cityLocation, allowedCities);
+    public boolean isAllowedLocation(String cityLocation) throws PropertyException {
+        try {
+            List<String> allowedCities = Arrays.asList("medellin", "medellín", "cartagena", "bogota", "bogotá", "cali");
+            return verifyCity(cityLocation, allowedCities);
+        } catch (ClientException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error verifying allowed cities" + e);
+        }
     }
 
     @Override
-    public boolean citiesMinValueMortgage(String ubicacion) {
-        List<String> allowedCities = Arrays.asList("bogota", "bogotá", "cali");
-        return verifyCity(ubicacion, allowedCities);
+    public boolean citiesMinValueMortgage(String ubicacion) throws PropertyException {
+        try {
+            List<String> allowedCities = Arrays.asList("bogota", "bogotá", "cali");
+            return verifyCity(ubicacion, allowedCities);
+        } catch (ClientException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error verifying minimun values cities" + e);
+        }
     }
 
     @Override
-    public void saveProperty(Property property) {
-        propertyRepository.save(property);
+    public void saveProperty(Property property) throws PropertyException {
+        try {
+            propertyRepository.save(property);
+        } catch (ClientException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error saving property" + e);
+        }
     }
 
     @Override
-    public List<PropertyDTO> findAllProperties() {
-        return propertyRepository.findAll().stream().map(property -> new PropertyDTO(property)).collect(Collectors.toList());
+    public List<PropertyDTO> findAllProperties() throws PropertyException {
+        try {
+            return propertyRepository.findAll()
+                    .stream()
+                    .map(property -> new PropertyDTO(property))
+                    .collect(Collectors.toList());
+        } catch (ClientException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error finding all properties" + e);
+        }
     }
 
     @Override
-    public List<PropertyDTO> findByValue(int min, int max){
-        return propertyRepository.findByMortgageValue(min, max).stream().map(property -> new PropertyDTO(property)).collect(Collectors.toList());
+    public List<PropertyDTO> findByValue(int min, int max) throws PropertyException {
+        try {
+            return propertyRepository.findByMortgageValue(min, max)
+                    .stream()
+                    .map(property -> new PropertyDTO(property)).collect(Collectors.toList());
+        } catch (ClientException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error finding value with the given ranges" + e);
+        }
     }
 
     @Override
-    public Optional<Property> findByPropertyName(String propertyName) {
-        return propertyRepository.findByPropertyName(propertyName);
+    public Optional<Property> findByPropertyName(String propertyName) throws PropertyException {
+        try {
+            return propertyRepository.findByPropertyName(propertyName);
+        } catch (ClientException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error finding property by name" + e);
+        }
     }
 
     @Override
-    public Optional<Property> findByPropertyId(Long id){
-        return propertyRepository.findByPropertyId(id);
+    public Optional<Property> findByPropertyId(Long id) throws PropertyException {
+        try {
+            return propertyRepository.findByPropertyId(id);
+        } catch (ClientException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error finding property by id" + e);
+        }
     }
 
     @Transactional
-    public void modifyDeletedValue (String propertyName){
-        propertyRepository.modifyDeletedValue(propertyName);
+    public void modifyDeletedValue(String propertyName) throws PropertyException {
+        try {
+            propertyRepository.modifyDeletedValue(propertyName);
+        } catch (ClientException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error deleting property from the system" + e);
+        }
     }
 }

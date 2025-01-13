@@ -3,7 +3,6 @@ package com.alquiler.AlquilerPropiedades.dto;
 
 import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
 import lombok.Getter;
-
 import java.time.LocalDate;
 
 @Getter
