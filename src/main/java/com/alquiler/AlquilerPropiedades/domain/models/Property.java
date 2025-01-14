@@ -1,4 +1,4 @@
-package com.alquiler.AlquilerPropiedades.jpa.entity.properties;
+package com.alquiler.AlquilerPropiedades.domain.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

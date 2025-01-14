@@ -1,7 +1,7 @@
-package com.alquiler.AlquilerPropiedades.dto;
+package com.alquiler.AlquilerPropiedades.domain.models.dto;
 
 
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
+import com.alquiler.AlquilerPropiedades.domain.models.Property;
 import lombok.Getter;
 import java.time.LocalDate;
 

@@ -1,11 +1,11 @@
-package com.alquiler.AlquilerPropiedades.service.implementation;
+package com.alquiler.AlquilerPropiedades.infrastructure.service.implementation;
 
-import com.alquiler.AlquilerPropiedades.dto.PropertyDTO;
-import com.alquiler.AlquilerPropiedades.exceptions.ClientException;
-import com.alquiler.AlquilerPropiedades.exceptions.PropertyException;
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
-import com.alquiler.AlquilerPropiedades.jpa.repository.PropertyRepository;
-import com.alquiler.AlquilerPropiedades.service.PropertyService;
+import com.alquiler.AlquilerPropiedades.domain.models.dto.PropertyDTO;
+import com.alquiler.AlquilerPropiedades.infrastructure.exceptions.ClientException;
+import com.alquiler.AlquilerPropiedades.infrastructure.exceptions.PropertyException;
+import com.alquiler.AlquilerPropiedades.domain.models.Property;
+import com.alquiler.AlquilerPropiedades.domain.repository.PropertyRepository;
+import com.alquiler.AlquilerPropiedades.infrastructure.service.PropertyService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

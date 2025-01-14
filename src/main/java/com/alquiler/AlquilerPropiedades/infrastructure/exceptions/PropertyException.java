@@ -1,4 +1,4 @@
-package com.alquiler.AlquilerPropiedades.exceptions;
+package com.alquiler.AlquilerPropiedades.infrastructure.exceptions;
 
 public class PropertyException extends RuntimeException{
 

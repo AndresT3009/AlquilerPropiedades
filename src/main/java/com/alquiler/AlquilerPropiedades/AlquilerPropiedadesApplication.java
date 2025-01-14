@@ -1,9 +1,9 @@
 package com.alquiler.AlquilerPropiedades;
 
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Client;
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
-import com.alquiler.AlquilerPropiedades.jpa.repository.ClientRepository;
-import com.alquiler.AlquilerPropiedades.jpa.repository.PropertyRepository;
+import com.alquiler.AlquilerPropiedades.domain.models.Client;
+import com.alquiler.AlquilerPropiedades.domain.models.Property;
+import com.alquiler.AlquilerPropiedades.domain.repository.ClientRepository;
+import com.alquiler.AlquilerPropiedades.domain.repository.PropertyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

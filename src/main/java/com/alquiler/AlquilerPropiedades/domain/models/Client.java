@@ -1,33 +1,40 @@
-package com.alquiler.AlquilerPropiedades.jpa.entity.properties;
+package com.alquiler.AlquilerPropiedades.domain.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashSet;
 import java.util.Set;
-
+@Getter
+@Setter
 @Entity
-@Table(name= "clients")
+@Table(name = "clients")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long client_id;
-
     @Column(name = "firstName")
     private String fisrtName;
-
     @Column(name = "secondName")
     private String secondName;
-
     @Column(name = "surName")
     private String surName;
-
     @Column(name = "phoneNumber")
     private String phoneNumber;
-
     @Column(name = "document")
     private Long document;
+    @Column(name = "username")
+    private String username;
+    @Column (name = " password")
+    private String password;
 
-    @OneToMany(mappedBy= "client", fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Property> properties = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "client_roles",joinColumns = @JoinColumn(name = "client_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public Client() {
     }
@@ -38,6 +45,11 @@ public class Client {
         this.surName = surName;
         this.phoneNumber = phoneNumber;
         this.document = document;
+    }
+
+    public Client (String username, String password){
+        this.username = username;
+        this.password = password;
     }
 
     public Long getId() {
@@ -88,6 +100,29 @@ public class Client {
         this.document = document;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public Set<Property> getProperties() {
         return properties;
     }
@@ -96,7 +131,7 @@ public class Client {
         this.properties = properties;
     }
 
-    public void addProperty(Property property){
+    public void addProperty(Property property) {
         property.setClient(this);
         properties.add(property);
     }

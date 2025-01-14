@@ -1,12 +1,12 @@
 package com.alquiler.AlquilerPropiedades.controllers;
 
-import com.alquiler.AlquilerPropiedades.dto.ClientDTO;
-import com.alquiler.AlquilerPropiedades.dto.PropertyDTO;
-import com.alquiler.AlquilerPropiedades.exceptions.ErrorResponse;
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Client;
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
-import com.alquiler.AlquilerPropiedades.service.ClientService;
-import com.alquiler.AlquilerPropiedades.service.PropertyService;
+import com.alquiler.AlquilerPropiedades.domain.models.dto.ClientDTO;
+import com.alquiler.AlquilerPropiedades.domain.models.dto.PropertyDTO;
+import com.alquiler.AlquilerPropiedades.infrastructure.exceptions.ErrorResponse;
+import com.alquiler.AlquilerPropiedades.domain.models.Client;
+import com.alquiler.AlquilerPropiedades.domain.models.Property;
+import com.alquiler.AlquilerPropiedades.infrastructure.service.ClientService;
+import com.alquiler.AlquilerPropiedades.infrastructure.service.PropertyService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class PropertyController {
     @Autowired
     ClientService clientService;
 
-    @GetMapping("/properties")
+    @GetMapping("/properties/all")
     public ResponseEntity<?> findAll() {
         try {
             List<PropertyDTO> properties = propertyService.findAllProperties();
@@ -43,7 +43,7 @@ public class PropertyController {
         }
     }
 
-    @GetMapping("/search_value")
+    @GetMapping("/properties/search")
     public ResponseEntity<?> searchProperty(
             @RequestParam int minValue,
             @RequestParam int maxValue
@@ -69,7 +69,7 @@ public class PropertyController {
         }
     }
 
-    @PostMapping("/save_property")
+    @PostMapping("/properties/save")
     public ResponseEntity<?> insertProperty(
             @RequestParam String propertyName,
             @RequestParam String city,
@@ -125,7 +125,7 @@ public class PropertyController {
         }
     }
 
-    @PatchMapping("/delete_property")
+    @PatchMapping("/properties/delete")
     public ResponseEntity<?> searchProperty(
             @RequestParam String propertyName
     ) {
@@ -159,7 +159,7 @@ public class PropertyController {
     }
 
     @Transactional
-    @PostMapping("reserve_property")
+    @PostMapping("/properties/reserve")
     public ResponseEntity<?> reserveProperty(
             @RequestParam(required = false) Long propertyId,
             @RequestParam(required = false) Long clientDocument) {
@@ -204,7 +204,7 @@ public class PropertyController {
         }
     }
 
-    @PatchMapping("/update_property")
+    @PatchMapping("/properties/update")
     public ResponseEntity<?> updateProperty(
             @RequestParam String propertyName,
             @RequestParam String newPropertyName,
