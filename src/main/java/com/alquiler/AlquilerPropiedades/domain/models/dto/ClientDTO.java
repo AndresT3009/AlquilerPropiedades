@@ -1,6 +1,6 @@
-package com.alquiler.AlquilerPropiedades.dto;
+package com.alquiler.AlquilerPropiedades.domain.models.dto;
 
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Client;
+import com.alquiler.AlquilerPropiedades.domain.models.Client;
 import lombok.Getter;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,16 +10,15 @@ import java.util.stream.Collectors;
 public class ClientDTO {
 
     private Long client_id;
-
     private String fisrtName;
-
     private String secondName;
-
     private String surName;
-
     private String phoneNumber;
-
     private Long document;
+
+    private String username;
+
+    private String password;
 
     private Set<PropertyDTO> properties = new HashSet<>();
 
@@ -33,6 +32,8 @@ public class ClientDTO {
         this.surName = client.getSurName();
         this.phoneNumber = client.getPhoneNumber();
         this.document = client.getDocument();
+        this.username = client.getUsername();
+        this.password = client.getPassword();
         this.properties=client.getProperties().stream().map(property -> new PropertyDTO(property)).collect(Collectors.toSet());
 
     }
@@ -46,6 +47,9 @@ public class ClientDTO {
                 ", surName='" + surName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", document=" + document +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", properties=" + properties +
                 '}';
     }
 }

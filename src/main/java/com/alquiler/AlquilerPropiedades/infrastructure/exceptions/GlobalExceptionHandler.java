@@ -1,4 +1,4 @@
-package com.alquiler.AlquilerPropiedades.exceptions;
+package com.alquiler.AlquilerPropiedades.infrastructure.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,10 +1,10 @@
-package com.alquiler.AlquilerPropiedades.service.implementation;
+package com.alquiler.AlquilerPropiedades.infrastructure.service.implementation;
 
-import com.alquiler.AlquilerPropiedades.dto.ClientDTO;
-import com.alquiler.AlquilerPropiedades.exceptions.ClientException;
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Client;
-import com.alquiler.AlquilerPropiedades.jpa.repository.ClientRepository;
-import com.alquiler.AlquilerPropiedades.service.ClientService;
+import com.alquiler.AlquilerPropiedades.domain.models.dto.ClientDTO;
+import com.alquiler.AlquilerPropiedades.infrastructure.service.ClientService;
+import com.alquiler.AlquilerPropiedades.infrastructure.exceptions.ClientException;
+import com.alquiler.AlquilerPropiedades.domain.models.Client;
+import com.alquiler.AlquilerPropiedades.domain.repository.ClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

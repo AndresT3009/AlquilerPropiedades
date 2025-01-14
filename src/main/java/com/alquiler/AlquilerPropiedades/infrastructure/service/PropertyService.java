@@ -1,8 +1,8 @@
-package com.alquiler.AlquilerPropiedades.service;
+package com.alquiler.AlquilerPropiedades.infrastructure.service;
 
-import com.alquiler.AlquilerPropiedades.dto.PropertyDTO;
-import com.alquiler.AlquilerPropiedades.exceptions.PropertyException;
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
+import com.alquiler.AlquilerPropiedades.domain.models.dto.PropertyDTO;
+import com.alquiler.AlquilerPropiedades.infrastructure.exceptions.PropertyException;
+import com.alquiler.AlquilerPropiedades.domain.models.Property;
 import java.util.List;
 import java.util.Optional;
 

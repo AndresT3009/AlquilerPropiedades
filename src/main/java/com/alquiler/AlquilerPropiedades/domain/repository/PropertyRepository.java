@@ -1,6 +1,6 @@
-package com.alquiler.AlquilerPropiedades.jpa.repository;
+package com.alquiler.AlquilerPropiedades.domain.repository;
 
-import com.alquiler.AlquilerPropiedades.jpa.entity.properties.Property;
+import com.alquiler.AlquilerPropiedades.domain.models.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
