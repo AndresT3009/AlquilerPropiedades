@@ -1,11 +1,10 @@
 package com.alquiler.AlquilerPropiedades.controllers;
 
+import com.alquiler.AlquilerPropiedades.domain.models.Client;
 import com.alquiler.AlquilerPropiedades.domain.models.Role;
 import com.alquiler.AlquilerPropiedades.domain.models.dto.ClientDTO;
-import com.alquiler.AlquilerPropiedades.domain.models.enums.Roles;
 import com.alquiler.AlquilerPropiedades.domain.repository.RoleRepository;
 import com.alquiler.AlquilerPropiedades.infrastructure.exceptions.ErrorResponse;
-import com.alquiler.AlquilerPropiedades.domain.models.Client;
 import com.alquiler.AlquilerPropiedades.infrastructure.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +31,6 @@ public class ClientController {
     RoleRepository roleRepository;
 
     @GetMapping("/clients/all")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> findAll() {
         try {
             List<ClientDTO> clients = clientService.findAllClients();
@@ -50,7 +47,6 @@ public class ClientController {
     }
 
     @GetMapping("/clients/search")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> searchClient(@RequestParam long document) {
         try {
             if (document <= 0) {
@@ -75,7 +71,6 @@ public class ClientController {
     }
 
     @PostMapping("/clients/save")
-    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> insertClient(
             @RequestParam String firstName,
             @RequestParam String secondName,
@@ -104,13 +99,16 @@ public class ClientController {
             if (document == null) {
                 return new ResponseEntity<>("You must to specify client document", HttpStatus.FORBIDDEN);
             } else {
-                String roleName  = username.contains("@quind") ? "ADMIN" : "USER";
+                String roleName = username.contains("@quind") ? "ADMIN" : "USER";
+                log.info("Assigning role '{}' to new client '{}'", roleName, username);
                 Role role = roleRepository.findByName(roleName);
 
                 Client newClient = new Client(firstName, secondName, surName, phoneNumber, document);
                 newClient.setUsername(username);
                 newClient.setPassword(passwordEncoder.encode(password));
                 newClient.setRoles(Collections.singleton(role));
+                log.info("Roles assigned to client '{}': {}", username, newClient.getRoles());
+
                 clientService.saveClient(newClient);
                 return new ResponseEntity<>("Client saved successfully", HttpStatus.OK);
             }

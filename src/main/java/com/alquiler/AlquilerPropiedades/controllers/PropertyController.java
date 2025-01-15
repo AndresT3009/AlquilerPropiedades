@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -248,8 +247,10 @@ public class PropertyController {
                 if (available.equalsIgnoreCase("yes")) {
                     updateProperty.setAvailable(true);
                     Client assignedClient = updateProperty.getClient();
-                    assignedClient.setProperties(null);
-                    updateProperty.setClient(null);
+                    if(assignedClient != null){
+                        assignedClient.setProperties(null);
+                        updateProperty.setClient(null);
+                    }
                 } else {
                     updateProperty.setAvailable(false);
                 }

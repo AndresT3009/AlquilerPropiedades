@@ -2,7 +2,6 @@ package com.alquiler.AlquilerPropiedades.domain.models;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Set;
 
 @Getter

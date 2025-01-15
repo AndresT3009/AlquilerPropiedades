@@ -3,9 +3,9 @@ package com.alquiler.AlquilerPropiedades.domain.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.HashSet;
 import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -26,7 +26,7 @@ public class Client {
     private Long document;
     @Column(name = "username")
     private String username;
-    @Column (name = " password")
+    @Column (name = "password")
     private String password;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
@@ -34,7 +34,7 @@ public class Client {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "client_roles",joinColumns = @JoinColumn(name = "client_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public Client() {
     }
