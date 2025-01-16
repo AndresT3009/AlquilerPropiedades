@@ -24,8 +24,8 @@ public class Client {
     private String phoneNumber;
     @Column(name = "document")
     private Long document;
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email")
+    private String email;
     @Column (name = "password")
     private String password;
 
@@ -47,8 +47,8 @@ public class Client {
         this.document = document;
     }
 
-    public Client (String username, String password){
-        this.username = username;
+    public Client (String email, String password){
+        this.email = email;
         this.password = password;
     }
 
@@ -100,12 +100,12 @@ public class Client {
         this.document = document;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

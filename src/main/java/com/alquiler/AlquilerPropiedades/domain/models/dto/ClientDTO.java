@@ -16,7 +16,7 @@ public class ClientDTO {
     private String phoneNumber;
     private Long document;
 
-    private String username;
+    private String email;
 
     private String password;
 
@@ -32,7 +32,7 @@ public class ClientDTO {
         this.surName = client.getSurName();
         this.phoneNumber = client.getPhoneNumber();
         this.document = client.getDocument();
-        this.username = client.getUsername();
+        this.email = client.getEmail();
         this.password = client.getPassword();
         this.properties=client.getProperties().stream().map(property -> new PropertyDTO(property)).collect(Collectors.toSet());
 
@@ -47,7 +47,7 @@ public class ClientDTO {
                 ", surName='" + surName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", document=" + document +
-                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", properties=" + properties +
                 '}';
