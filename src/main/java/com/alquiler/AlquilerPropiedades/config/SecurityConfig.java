@@ -10,17 +10,20 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
-
     private final UserSecurityService userSecurityService;
     private final JwtFilter jwtFilter;
+    private final AccessDeniedHandler accessDeniedHandler;
 
-    public SecurityConfig(UserSecurityService userSecurityService,JwtFilter jwtFilter) {
+
+    public SecurityConfig(UserSecurityService userSecurityService, JwtFilter jwtFilter,AccessDeniedHandler accessDeniedHandler ) {
         this.userSecurityService = userSecurityService;
         this.jwtFilter = jwtFilter;
+        this.accessDeniedHandler = accessDeniedHandler;
     }
 
     @Bean
@@ -29,8 +32,18 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/clients/save").permitAll()
-                .requestMatchers("/api/clients/all").permitAll()
+                .requestMatchers("/api/clients/all").hasRole("ADMIN")
+                .requestMatchers("/api/clients/search").hasRole("ADMIN")
+                .requestMatchers("/api/properties/all").permitAll()
+                .requestMatchers("/api/properties/search").permitAll()
+                .requestMatchers("/api/properties/reserve").permitAll()
+                .requestMatchers("/api/properties/search").hasRole("ADMIN")
+                .requestMatchers("/api/properties/delete").hasRole("ADMIN")
+                .requestMatchers("/api/properties/update").hasRole("ADMIN")
                 .anyRequest().authenticated()
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
