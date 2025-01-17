@@ -42,7 +42,7 @@ public class ClientController {
         } catch (Exception e) {
             log.error("Error retrieving clients: {}", e.getMessage(), e);
             return new ResponseEntity<>(
-                    new ErrorResponse("An unexpected error occurred while retrieving clients.", e.getMessage()),
+                    new ErrorResponse("An unexpected error occurred while retrieving clients.", "Database error"),
                     HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
@@ -62,7 +62,10 @@ public class ClientController {
                 return new ResponseEntity<>("Does not exist client whit this document", HttpStatus.NOT_FOUND);
             }
             log.info("Client found with document: {}", document);
-            return ResponseEntity.status(HttpStatus.OK).header("Message", "Client found succesfully").body(client);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .header("Message", "Client found successfully")
+                    .body(client.get());
+            //return ResponseEntity.status(HttpStatus.OK).header("Message", "Client found succesfully").body(client);
         } catch (IllegalArgumentException e) {
             log.warn("Validation error: {}", e.getMessage());
             return new ResponseEntity<>(new ErrorResponse("Validation failed. Check your input.", e.getMessage()), HttpStatus.BAD_REQUEST);

@@ -1,12 +1,12 @@
 package com.alquiler.AlquilerPropiedades.infrastructure.exceptions;
 
 public class ErrorResponse {
-    private String userMessage;
     private String technicalMessage;
+    private String userMessage;
 
-    public ErrorResponse(String userMessage, String technicalMessage) {
-        this.userMessage = userMessage;
+    public ErrorResponse(String technicalMessage,String userMessage) {
         this.technicalMessage = technicalMessage;
+        this.userMessage = userMessage;
     }
 
     public String getUserMessage() {
