@@ -127,4 +127,22 @@ public class PropertyServiceImplement implements PropertyService {
             throw new RuntimeException("Error deleting property from the system" + e);
         }
     }
+
+    @Override
+    public PropertyDTO updateProperty(String propertyName, String newPropertyName, String city, boolean available, String address, int mortgageValue, String image) throws PropertyException {
+        Optional<Property> optionalProperty = propertyRepository.findByPropertyName(propertyName);
+        if (optionalProperty.isEmpty()) {
+            throw new PropertyException("Property not found");
+        }
+        Property property = optionalProperty.get();
+        property.setPropertyName(newPropertyName);
+        property.setCity(city);
+        property.setAddress(address);
+        property.setMortgageValue(mortgageValue);
+        property.setImage(image);
+
+        Property updatedProperty = propertyRepository.save(property);
+
+        return new PropertyDTO(updatedProperty);
+    }
 }

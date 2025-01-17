@@ -142,7 +142,7 @@ public class PropertyController {
     }
 
     @PatchMapping("/properties/delete")
-    public ResponseEntity<?> searchProperty(
+    public ResponseEntity<?> deleteProperty(
             @RequestParam String propertyName
     ) {
         try {
@@ -337,10 +337,10 @@ public class PropertyController {
                 }
             }
             log.warn("Property {} not found", propertyName);
-            return new ResponseEntity<>("Property not found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Property not found", HttpStatus.NOT_FOUND);
         } catch (IllegalArgumentException e) {
             log.warn("Validation error: {}", e.getMessage());
-            return new ResponseEntity<>(new ErrorResponse("Validation failed. Check your input.", e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse("Validation failed. Check your input.", e.getMessage()), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             log.error("Error updating property: {}", e.getMessage(), e);
             return new ResponseEntity<>(

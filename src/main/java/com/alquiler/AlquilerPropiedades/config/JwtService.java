@@ -10,8 +10,8 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.Set;
 
-@Service
 @Slf4j
+@Service
 public class JwtService {
 
     private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
