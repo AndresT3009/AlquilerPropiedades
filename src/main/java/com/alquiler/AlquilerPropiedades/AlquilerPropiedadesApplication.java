@@ -37,7 +37,7 @@ public class AlquilerPropiedadesApplication {
 			Property property = new Property("Apartamento La Vega 203","Medellin","carrera 34 # 75 - 20",true, 2000000,"www.images.com" , LocalDate.of(2024,12,8),false);
 			propertyRepository.save(property);
 
-			Property property2 = new Property("Apartamento La Vega 204","Medellin","carrera 34 # 75 - 20",true, 1500000,"www.images.com" , LocalDate.of(2024,12,30),true);
+			Property property2 = new Property("Apartamento La Vega 204","Medellin","carrera 34 # 75 - 20",true, 1500000,"www.images.com" , LocalDate.of(2024,12,01),true);
 			propertyRepository.save(property2);
 
 			Client client = new Client("Darwin", "Andrés", "Tangarife", "3015781171",1017137654L);
