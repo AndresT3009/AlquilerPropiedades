@@ -15,7 +15,7 @@ import java.util.Set;
 public class JwtService {
 
     private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long EXPIRATION_TIME = 60000;
+    private static final long EXPIRATION_TIME = 600000;
 
     public String generateToken(String email, Set<String> roles) {
         log.debug("Generating token for email: {}, roles: {}", email, roles);

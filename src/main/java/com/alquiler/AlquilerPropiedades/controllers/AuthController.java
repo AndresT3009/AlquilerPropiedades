@@ -41,7 +41,6 @@ public class AuthController {
         try {
             Client client = clientRepository.findByEmail(loginRequest.getEmail())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            log.warn("User not found for email: {}", loginRequest.getEmail());
             if (!passwordEncoder.matches(loginRequest.getPassword(), client.getPassword())) {
                 log.warn("Invalid password attempt for email: {}", loginRequest.getEmail());
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
